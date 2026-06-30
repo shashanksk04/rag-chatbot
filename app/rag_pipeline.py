@@ -46,7 +46,7 @@ class RAGPipeline:
     def __init__(
         self,
         embedding_model_name: str = "all-MiniLM-L6-v2",
-        chat_model: str = "meta-llama/Meta-Llama-3-8B-Instruct",
+        chat_model: str = "HuggingFaceH4/zephyr-7b-beta",
         top_k: int = 4,
         hf_api_key: str | None = None,
     ) -> None:
