@@ -5,12 +5,14 @@ Run with:  streamlit run app/streamlit_app.py
 """
 
 import os
+import sys
 import tempfile
 from pathlib import Path
 
 import streamlit as st
 
-import sys
+# Ensure the project root is on the path regardless of the working
+# directory Streamlit Cloud (or any other host) launches this script from.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.rag_pipeline import RAGPipeline
@@ -43,6 +45,18 @@ with st.sidebar:
         help="Get a free token at huggingface.co/settings/tokens. Used only for this session, never stored.",
     )
 
+    chat_model = st.selectbox(
+        "Chat model",
+        options=[
+            "meta-llama/Llama-3.2-3B-Instruct",
+            "Qwen/Qwen2.5-7B-Instruct",
+            "mistralai/Mistral-7B-Instruct-v0.3",
+            "HuggingFaceH4/zephyr-7b-beta",
+        ],
+        index=0,
+        help="If one model returns 'not supported by any provider', try another from this list.",
+    )
+
     uploaded_files = st.file_uploader(
         "Upload documents (.txt, .md, .pdf)",
         type=["txt", "md", "pdf"],
@@ -55,7 +69,7 @@ with st.sidebar:
             for f in uploaded_files:
                 (Path(tmp_dir) / f.name).write_bytes(f.read())
 
-            pipeline = RAGPipeline(hf_api_key=api_key)
+            pipeline = RAGPipeline(hf_api_key=api_key, chat_model=chat_model)
             count = pipeline.ingest_directory(tmp_dir)
 
             st.session_state.pipeline = pipeline
