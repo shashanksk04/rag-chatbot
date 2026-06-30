@@ -10,6 +10,9 @@ from pathlib import Path
 
 import streamlit as st
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from app.rag_pipeline import RAGPipeline
 
 st.set_page_config(page_title="RAG Document Chatbot", page_icon="📚", layout="wide")
