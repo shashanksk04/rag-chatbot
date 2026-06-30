@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  rag-chatbot:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - HF_API_KEY=${HF_API_KEY}
+    volumes:
+      - ./data:/app/data
