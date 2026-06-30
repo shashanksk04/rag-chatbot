@@ -48,10 +48,10 @@ with st.sidebar:
     chat_model = st.selectbox(
         "Chat model",
         options=[
-            "meta-llama/Llama-3.2-3B-Instruct",
-            "Qwen/Qwen2.5-7B-Instruct",
-            "mistralai/Mistral-7B-Instruct-v0.3",
-            "HuggingFaceH4/zephyr-7b-beta",
+            "openai/gpt-oss-120b:groq",
+            "moonshotai/Kimi-K2-Instruct-0905:groq",
+            "meta-llama/Llama-3.3-70B-Instruct:novita",
+            "deepseek-ai/DeepSeek-V3-0324:fireworks-ai",
         ],
         index=0,
         help="If one model returns 'not supported by any provider', try another from this list.",
